@@ -1,9 +1,6 @@
 package com.cdbd.stock_project.infrastructure.jpa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Comment;
 
@@ -11,22 +8,27 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "Inventory")
-@Comment("품목")
+@Table(name = "Inventory") //이름 바꾸기
+@Comment("현재고")
 public class InventoryJpaEntity {
 
     @Id
-    @Column(name = "inventory_id")
+    @Column(name = "id")
     @Comment("고유ID")
-    private Integer inventoryId;
+    @GeneratedValue //++1
+    private Integer id;
 
-    @Column(name = "inventory_info")
-    @Comment("품목정보")
-    private String inventoryInfo;
+    @Column(name = "stock_supplier_id")
+    @Comment("업체ID")
+    private String stockSupplierId;
 
-    @Column(name = "category_id")
-    @Comment("품목카테고리ID")
-    private Integer categoryId;
+    @Column(name = "stock_inventory_id")
+    @Comment("품목ID")
+    private String stockInventoryId;
+
+    @Column(name = "stock_quantity")
+    @Comment("수량")
+    private Integer stockQuantity;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Comment("생성일시")
