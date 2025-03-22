@@ -7,10 +7,8 @@ import java.time.Instant;
 @Data
 @DomainEntity
 public class Stock {
-    private Integer stockId;
-    private Integer stockSupplierId;
-    private Integer stockInventoryId;
-    private Integer stockQuantity;
-    private Instant createdAt;
-    private Instant updatedAt;
+    private String stockId;
+    private String stockSupplierId;
+    private String stockInventoryId;
+    private String stockQuantity;
 }

@@ -11,22 +11,30 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "Inventory")
-@Comment("품목")
-public class InventoryJpaEntity {
+@Table(name = "ship_info")
+@Comment("배송정보")
+public class ShipInfoJpaEntity {
 
     @Id
     @Column(name = "id")
     @Comment("고유ID")
-    private String id;
+    private Integer id;
 
-    @Column(name = "inventory_info")
-    @Comment("품목정보")
-    private String inventoryInfo;
+    @Column(name = "order_id")
+    @Comment("주문번호")
+    private String orderId;
 
-    @Column(name = "category_id")
-    @Comment("품목카테고리ID")
-    private String categoryId;
+    @Column(name = "supplier")
+    @Comment("업체")
+    private String supplier;
+
+    @Column(name = "items")
+    @Comment("품목")
+    private String items;
+
+    @Column(name = "status")
+    @Comment("상태")
+    private String status;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Comment("생성일시")
