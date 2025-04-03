@@ -19,7 +19,7 @@ public class Shipment {
     private String approveStatus;
     private Instant createdAt;
     private Instant updatedAt;
-
+    //commit test
     //배송 예정 물품 추가
     public void addShipInfo(ShipmentRepository repository){
         Assert.notNull(this.id, "배송 ID 값은 null일 수 없습니다.");
