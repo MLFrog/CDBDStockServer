@@ -18,7 +18,7 @@ public class StockJpaEntity {
     @Id
     @Column(name = "stock_id")
     @Comment("고유ID")
-    private Integer stockId;
+    private String stockId;
 
     @Column(name = "stock_supplier_id")
     @Comment("업체ID")

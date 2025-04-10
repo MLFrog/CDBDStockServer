@@ -2,34 +2,63 @@ package com.cdbd.stock_project.application.shipment.impl;
 
 import com.cdbd.stock_project.application.shipment.ShipmentMngService;
 import com.cdbd.stock_project.domain.shipping.Shipment;
+import com.cdbd.stock_project.domain.shipping.ShipmentFactory;
+import com.cdbd.stock_project.domain.shipping.ShipmentRepository;
+import com.cdbd.stock_project.domain.shipping.repository.impl.JpaShipmentRepository;
 import com.cdbd.stock_project.infrastructure.jpa.entity.ShipInfoJpaEntity;
 import com.cdbd.stock_project.infrastructure.jpa.repository.ShipInfoJpaRepository;
+import com.cdbd.stock_project.presentation.api.shipment.obj.ShipInfoObject;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ShipmentMngServiceImpl implements ShipmentMngService {
 
+    private ShipmentFactory factory;
+    private ShipmentRepository repository;
     private final ShipInfoJpaRepository shipInfoJpaRepository;
 
-    @Override
-    public Shipment addShipSchedule(Shipment shipment) {
-        //
-        return null;
+    @PostConstruct
+    public void init() {
+        this.repository = new JpaShipmentRepository(shipInfoJpaRepository);
+        this.factory = new ShipmentFactory();
     }
 
     @Override
-    public void updateApproveStatus(String shipmentId) {
-        ShipInfoJpaEntity shipInfoJpaEntity = this.shipInfoJpaRepository.findByShipmentId(shipmentId);
+    public List<ShipInfoJpaEntity> getAllShipments() {
+        return shipInfoJpaRepository.findAll();
+    }
+
+    @Override
+    public void addShipSchedule(ShipInfoObject shipInfoObject) {
+        Shipment shipment = this.factory.getInstance();
+        shipment.setOrderId(shipInfoObject.getOrderId());
+        shipment.setSupplier(shipInfoObject.getSupplier());
+        shipment.setItems(shipInfoObject.getItems());
+        shipment.setMngstatus(shipInfoObject.getMngstatus());
+        shipment.setApproveStatus(shipInfoObject.getApproveStatus());
+
+        shipment.saveShipInfo(this.repository);
+    }
+
+    //승인상태 수정
+    @Override
+    public void updateApproveStatus(Shipment shipment) {
+        ShipInfoJpaEntity shipInfoJpaEntity = this.shipInfoJpaRepository.findByOrderId(shipment.getOrderId());
+        shipInfoJpaEntity.setApproveStatus(shipment.getApproveStatus());
         shipInfoJpaRepository.save(shipInfoJpaEntity);
     }
 
+    //입고상태 수정
     @Override
     public void updateMngStatus(Shipment shipment) {
-
+        ShipInfoJpaEntity shipInfoJpaEntity = this.shipInfoJpaRepository.findByOrderId(shipment.getOrderId());
+        shipInfoJpaEntity.setApproveStatus(shipment.getMngstatus());
+        shipInfoJpaRepository.save(shipInfoJpaEntity);
     }
 }
 //    물품 발송 및 배송 정보 수신

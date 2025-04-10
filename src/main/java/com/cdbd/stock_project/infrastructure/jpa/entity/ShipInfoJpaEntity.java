@@ -1,9 +1,6 @@
 package com.cdbd.stock_project.infrastructure.jpa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Comment;
 
@@ -16,6 +13,7 @@ import java.sql.Timestamp;
 public class ShipInfoJpaEntity {
 
     @Id
+    @GeneratedValue
     @Column(name = "id")
     @Comment("고유ID")
     private Integer id;
@@ -35,6 +33,10 @@ public class ShipInfoJpaEntity {
     @Column(name = "status")
     @Comment("상태")
     private String status;
+
+    @Column(name = "approve_status")
+    @Comment("승인 상태")
+    private String approveStatus;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Comment("생성일시")
