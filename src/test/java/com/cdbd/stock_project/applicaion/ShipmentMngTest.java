@@ -1,12 +1,16 @@
 package com.cdbd.stock_project.applicaion;
 
 import com.cdbd.stock_project.application.shipment.ShipmentMngService;
+import com.cdbd.stock_project.domain.shipping.ShipmentRepository;
+import com.cdbd.stock_project.infrastructure.jpa.entity.ShipInfoJpaEntity;
+import com.cdbd.stock_project.infrastructure.jpa.repository.ShipInfoJpaRepository;
 import com.cdbd.stock_project.presentation.api.shipment.obj.ShipInfoObject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,23 +29,46 @@ public class ShipmentMngTest {
     @Autowired
     private ShipmentMngService shipmentMngService;
 
-    private ShipInfoObject obj;
+    @Mock
+    ShipInfoJpaRepository jpaRepository;
 
-    @BeforeEach
-    void 객체생성() {
-        // given
-        obj = new ShipInfoObject();
+
+    @Test
+    public void 배송_정보_입력() {
+        ShipInfoObject obj = new ShipInfoObject();
         obj.setOrderId("001");
         obj.setSupplier("물류좋아");
         obj.setItems("통나무");
         obj.setMngstatus("N");
         obj.setApproveStatus("N");
 
-        logger.info("ShipInfoObject 생성확인: {}", obj);
+        this.shipmentMngService.addShipSchedule(obj);
+        logger.info("배송 정보 입력 완료: {}", obj);
     }
 
     @Test
-    public void 배송_정보_입력() {
+    public void 승인상태_변경() {
+        //given
+        String orderId = "001";
+        String approveStatus = "Y";
+
+        //wehn
+        ShipInfoJpaEntity entity = jpaRepository.findByOrderId(orderId);
+        entity.setApproveStatus(approveStatus);
+
+        //then
+        jpaRepository.save(entity);
+    }
+
+    @Test
+    public void 배송_정보_입() {
+        ShipInfoObject obj = new ShipInfoObject();
+        obj.setOrderId("001");
+        obj.setSupplier("물류좋아");
+        obj.setItems("통나무");
+        obj.setMngstatus("N");
+        obj.setApproveStatus("N");
+
         this.shipmentMngService.addShipSchedule(obj);
         logger.info("배송 정보 입력 완료: {}", obj);
     }
