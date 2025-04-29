@@ -49,15 +49,26 @@ public class ShipmentMngTest {
     @Test
     public void 승인상태_변경() {
         //given
-        String orderId = "001";
-        String approveStatus = "Y";
 
-        //wehn
-        ShipInfoJpaEntity entity = jpaRepository.findByOrderId(orderId);
-        entity.setApproveStatus(approveStatus);
+        ShipInfoObject obj = new ShipInfoObject();
+        obj.setOrderId("001");
+        obj.setSupplier("물류좋아");
+        obj.setItems("통나무");
+        obj.setMngstatus("N");
+        obj.setApproveStatus("N");
+
+        this.shipmentMngService.addShipSchedule(obj);
+        logger.info("배송 정보 입력 완료: {}", obj);
+
+        String orderId = "001";
+         String approveStatus = "Y";
+
+        //when
+        this.shipmentMngService.updateApproveStatus(orderId, approveStatus);
+//        ShipInfoJpaEntity entity = jpaRepository.findByOrderId(orderId);
+        logger.info("승인 상태 수정 완료: {}","ㅇ");
 
         //then
-        jpaRepository.save(entity);
     }
 
     @Test

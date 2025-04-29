@@ -49,7 +49,7 @@ public class ShipmentMngServiceImpl implements ShipmentMngService {
     @Override
     public void updateApproveStatus(String orderId, String approveStatus) {
         ShipInfoJpaEntity shipInfoJpaEntity = this.shipInfoJpaRepository.findByOrderId(orderId);
-        shipInfoJpaEntity.setApproveStatus(approveStatus);
+         shipInfoJpaEntity.setApproveStatus(approveStatus);
         shipInfoJpaRepository.save(shipInfoJpaEntity);
     }
 
