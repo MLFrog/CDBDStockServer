@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
-@SpringBootTest
 @ExtendWith(SpringExtension.class)
 @RequiredArgsConstructor
 @Slf4j
@@ -22,14 +21,12 @@ public class ShipmentMngTest {
 
     private static final Logger logger = LoggerFactory.getLogger(ShipmentMngTest.class);
 
-    @Autowired
     private ShipmentMngService shipmentMngService;
 
     private ShipInfoObject obj;
 
     @BeforeEach
     void 객체생성() {
-        // given
         obj = new ShipInfoObject();
         obj.setOrderId("001");
         obj.setSupplier("물류좋아");
