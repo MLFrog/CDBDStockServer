@@ -30,16 +30,9 @@ public class ShipmentMngTest {
     @Mock
     ShipInfoJpaRepository jpaRepository;
 
-<<<<<<< .merge_file_JPkMgj
-    @BeforeEach
-    void 객체생성() {
-        obj = new ShipInfoObject();
-=======
-
     @Test
     public void 배송_정보_입력() {
         ShipInfoObject obj = new ShipInfoObject();
->>>>>>> .merge_file_QLf76u
         obj.setOrderId("001");
         obj.setSupplier("물류좋아");
         obj.setItems("통나무");
@@ -64,15 +57,16 @@ public class ShipmentMngTest {
         this.shipmentMngService.addShipSchedule(obj);
         logger.info("배송 정보 입력 완료: {}", obj);
 
-        String orderId = "001";
-         String approveStatus = "Y";
-
         //when
-        this.shipmentMngService.updateApproveStatus(orderId, approveStatus);
-//        ShipInfoJpaEntity entity = jpaRepository.findByOrderId(orderId);
-        logger.info("승인 상태 수정 완료: {}","ㅇ");
+        String orderId = "001";
+        String approveStatus = "Y";
+
 
         //then
+        this.shipmentMngService.updateApproveStatus(orderId, approveStatus);
+        logger.info("승인 상태 수정 완료:");
+
+
     }
 
     @Test
