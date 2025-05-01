@@ -47,9 +47,9 @@ public class ShipmentMngServiceImpl implements ShipmentMngService {
 
     //승인상태 수정
     @Override
-    public void updateApproveStatus(Shipment shipment) {
-        ShipInfoJpaEntity shipInfoJpaEntity = this.shipInfoJpaRepository.findByOrderId(shipment.getOrderId());
-        shipInfoJpaEntity.setApproveStatus(shipment.getApproveStatus());
+    public void updateApproveStatus(String orderId, String approveStatus) {
+        ShipInfoJpaEntity shipInfoJpaEntity = this.shipInfoJpaRepository.findByOrderId(orderId);
+         shipInfoJpaEntity.setApproveStatus(approveStatus);
         shipInfoJpaRepository.save(shipInfoJpaEntity);
     }
 
@@ -57,7 +57,7 @@ public class ShipmentMngServiceImpl implements ShipmentMngService {
     @Override
     public void updateMngStatus(Shipment shipment) {
         ShipInfoJpaEntity shipInfoJpaEntity = this.shipInfoJpaRepository.findByOrderId(shipment.getOrderId());
-        shipInfoJpaEntity.setApproveStatus(shipment.getMngstatus());
+        shipInfoJpaEntity.setStatus(shipment.getMngstatus());
         shipInfoJpaRepository.save(shipInfoJpaEntity);
     }
 }

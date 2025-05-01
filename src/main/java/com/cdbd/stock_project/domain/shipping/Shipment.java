@@ -28,7 +28,7 @@ public class Shipment {
     }
 
 
-    public void addItems(ShipmentRepository repository){
-        this.items = items;
-    }
+//    public void addItems(ShipmentRepository repository){
+//        this.items = items;
+//    }
 }

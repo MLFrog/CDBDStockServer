@@ -20,7 +20,7 @@ public interface ShipmentMngService {
 	public void addShipSchedule(ShipInfoObject object);
 
 	//관리자 승인 상태 수정
-	public void updateApproveStatus(Shipment shipment);
+	public void updateApproveStatus(String orderId, String approveStatus);
 
 	//입고 상태 수정
 	public void updateMngStatus(Shipment shipment);
